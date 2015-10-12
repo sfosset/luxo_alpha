@@ -1,0 +1,19 @@
+# Macro Begin: /home/steven/.FreeCAD/to_stl.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+
+# A useful macro for use with FreeCAD to convert all CAD files of a directory to mesh (.stl) files
+import FreeCAD
+import Part
+import Mesh
+
+import os
+
+path = "/home/steven/luxo/3Dmodels/horn/"
+for filename in os.listdir(path+"iges/"):
+	Part.open(path+"iges/"+filename)
+	__objs__=[]
+	__objs__.append(FreeCAD.getDocument("Unnamed").findObjects()[-1])
+	Mesh.export(__objs__,path+"stl/"+os.path.splitext(filename)[0]+".stl")
+	App.closeDocument("Unnamed")
+	del __objs__
+
+# Macro End: /home/steven/.FreeCAD/to_stl.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++

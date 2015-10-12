@@ -6,11 +6,12 @@ You can fin here all the documentation files of the project
 
 ##What's .ipynb ?
 
-The .ipynb files are iPython Notebook. To read them you need to install the ipython package : 
+The .ipynb files are iPython Notebook. To read them you need to install the jupyter notebook package : 
 ```bash
-pip install ipython
+pip install notebook
 ```
 and then run the ipython notebook server, that will open a new tab in your browser where you can search and open a notebook
 ```bash
-ipython notebook
+jupyter notebook
 ```
+More information about [Jupyter](http://jupyter.org/) and [Jupyter Notebook](https://github.com/jupyter/notebook)

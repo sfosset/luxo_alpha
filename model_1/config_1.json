@@ -1,7 +1,7 @@
 {
     "controllers": {
         "simple_controller": {
-            "sync_read":false,
+            "sync_read":true,
             "attached_motors": ["motor_1"],
             "protocole":1,
             "port":"/dev/ttyACM0"
