@@ -1,6 +1,8 @@
 # Macro Begin: /home/steven/.FreeCAD/to_stl.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
 
-# A useful macro for use with FreeCAD to convert all CAD files of a directory to mesh (.stl) files
+# A useful macro for use with FreeCAD to convert all CAD files of a directory
+# to mesh (.stl) files
+
 import FreeCAD
 import Part
 import Mesh

@@ -27,24 +27,32 @@ import pypot.dynamixel.motor
 import pypot.dynamixel.syncloop
 
 from pypot.robot.controller import DummyController
-from pypot.robot.config import dxl_io_from_confignode, sensor_from_confignode, check_motor_limits, _motor_extractor
+from pypot.robot.config import dxl_io_from_confignode, sensor_from_confignode,
+                                check_motor_limits, _motor_extractor
 
 class FollowingRobot(Robot):
     # Check les configs
     # Change le controller
-    """This class allow to create a new robot that can follow another leader robot
-    Based on AbstractPoppyCreature class from the Poppy project
+    """This class allow to create a new robot that can follow another leader
+    robot.
+
+    It is based on AbstractPoppyCreature class from the Poppy project
+
+    Attribute:
+
     """
 
     def __init__(self, config, simulator=None,
-                 vrep_host='127.0.0.1', vrep_port=19997, scene=None, tracked_objects=[], tracked_collisions=[],
+                 vrep_host='127.0.0.1', vrep_port=19997, scene=None,
+                 tracked_objects=[], tracked_collisions=[],
                  strict=True, sync=True, use_dummy_io=False,
-                 leader=None):
+                 leader=None, following_freq=20):
         """ Initialisation
 
-        :param bool sync: choose if automatically starts the synchronization loops
-        :param leader: the leading robot
-        :type leader: :class:`FollowingRobot`
+        Args:
+            sync (bool): choose if automatically starts the synchronization
+                loops
+            leader (FollowingRobot): the leading robot
         """
 
         if isinstance(config, str):
@@ -54,10 +62,12 @@ class FollowingRobot(Robot):
         if simulator is not None:
             if simulator == 'vrep':
                 if scene is None:
-                    raise ValueError('You must specify a scene to launch a vrep simulation')
+                    raise ValueError('You must specify a scene to launch a vrep'
+                                     ' simulation')
 
                 # from_vrep call super().__init__
-                self.from_vrep(config, vrep_host, vrep_port, scene, tracked_objects, tracked_collisions)
+                self.from_vrep(config, vrep_host, vrep_port, scene,
+                               tracked_objects, tracked_collisions)
 
             else:
                 raise ValueError('Only vrep simulation is supported')
@@ -66,24 +76,40 @@ class FollowingRobot(Robot):
             # from_config call super().__init__
             self.from_config(config, strict, sync, use_dummy_io)
 
-        self.config = config  # We need the config to later compare with the leader robot
+        self.config = config  # We need the config to later compare with the
+                              # leader robot
         self.following = False
         self.leader = None
+        self.following_freq = following_freq
 
         if leader is not None:
             self.set_leader(leader)
 
     def set_leader(self, leader):
-        """ Set the leader robot
+        """ Set the leader robot.
 
-        :param leader: the leading robot
-        :type FollowingRobot :class:`FollowingRobot`
+        Args:
+            leader (FollowingRobot): the leading robot
         """
 
-        if self.config != leader.config:
-            raise Exception('The robot can follow another robot only if their configs match perfectly')
-        else:
-            self.leader = leader
+        for sm in self.config['motors']:
+            try:
+                params = {'orientation', 'angle_limit', 'offset', 'type'}
+                for param in params:
+                    if (self.config['motors'][sm][param] !=
+                        leader.config['motors'][sm][param]):
+
+                        raise Exception('The robot can follow another robot'
+                                        'only if their configs match')
+            except KeyError:
+                raise Exception('The robot can follow another robot only if'
+                                'their configs match')
+
+                # We could look directly for this motor param :
+                # direct, lower_limit, upper_limit, offset, model
+                # Problem : link between lower and upper limit is not
+                # implemented for a V-REP simulation
+        self.leader = leader
 
     def start_following(self):
         if self.following:
@@ -102,18 +128,19 @@ class FollowingRobot(Robot):
             start = time.time()
             # loop
             for motor in self.motors:
-                motor.goal_position = getattr(self.leader, motor.name).present_position
+                motor.goal_position = getattr(self.leader,
+                                              motor.name).present_position
             end = time.time()
 
-            period = 1.0  # second
+            period = 1/self.following_freq
             dt = period - (end - start)
             if dt > 0:
                 time.sleep(dt)
 
         self.following = False
 
-    def from_vrep(self, config, vrep_host='127.0.0.1', vrep_port=19997, scene=None,
-                  tracked_objects=[], tracked_collisions=[]):
+    def from_vrep(self, config, vrep_host='127.0.0.1', vrep_port=19997,
+                  scene=None, tracked_objects=[], tracked_collisions=[]):
 
         # This is a copy from the from_vrep function of pypot package
         # IMHO, it shouldn't be a stand-alone function but a pypot.Robot method
@@ -236,6 +263,8 @@ class FollowingRobot(Robot):
             return vrep_io.get_object_orientation(object, relative_to_object)
 
         Robot.get_object_orientation = partial(get_object_orientation, self)
+
+
 
     def from_config(self, config, strict=True, sync=True, use_dummy_io=False):
         """ Returns a :class:`~pypot.robot.robot.Robot` instance created from a configuration dictionnary.
