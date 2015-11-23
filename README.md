@@ -10,7 +10,8 @@ babbling to learn inverse kinematics.
 
 ### What can I find in this repository ?
 * doc : here you will find general documentation files about the project :
-  meeting report, roadmap, paper summary, bibliography, ...
+  project definition, meeting report, roadmap, paper summary, bibliography, ...
+  (The most important file is probably project.md)
 * model_1 : json files to describe robots in a pypot way, and the
   corresponding scene files for vrep simulator
 * src : the main sources of the project

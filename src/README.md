@@ -15,26 +15,26 @@ config in terms of motors orientation, angle_limit, offset and type.
 
 ### Usage
 1. Instanciate two FollowingRobots, either real or simulated :
-```python
-#Simulated robot
-robot1 = FollowingRobot(config = "/path/to/config", simulator = vrep, scene = "/path/to/scene")
-#Real robot
-robot2 = FollowingRobot(config = "/path/to/config")
-```
+   ```python
+   #Simulated robot
+   robot1 = FollowingRobot(config = "/path/to/config", simulator = vrep, scene =  "/path/to/scene")
+   #Real robot
+   robot2 = FollowingRobot(config = "/path/to/config")
+   ```
 2. Set the robot1 as robot2 leader (make sure the configs match)
-```python
-robot1.setLeader(robot2)
-```
+   ```python
+   robot1.setLeader(robot2)
+   ```
 3. Start the following loop
-```python
-robot1.startFollowing()
-```
+   ```python
+   robot1.startFollowing()
+   ```
 4. You can pause it at any moment with
-```python
-robot1.stopFollowing()
-```
+   ```python
+   robot1.stopFollowing()
+   ```
 5. To prevent a momentary blocking of your USB port, make sure to close the
-robot with this command (it's a pypot.Robot method)
-```python
-robot1.close()
-```
+   robot with this command (it's a pypot.Robot method)
+   ```python
+   robot1.close()
+   ```

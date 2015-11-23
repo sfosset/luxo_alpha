@@ -19,7 +19,6 @@ equation in the nextV method.
 P[(i,j)] is the corresponding policy. It associates a state to the state with
 the highest state value among his four neighbours.
 
-
 """
 
 def nextV(V):

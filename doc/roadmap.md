@@ -1,5 +1,7 @@
 ## Roadmap
 Here is a very detailed list of little tasks I worked on during the project.
+Mainly for a personal use, you'll find more information about the project
+progression in project.md
 
 * Downloading v-rep [here](http://www.coppeliarobotics.com/downloads.html)
   * It's just a tar.gz to extract. No installation. Launch vrep.sh to launch
@@ -10,13 +12,15 @@ Here is a very detailed list of little tasks I worked on during the project.
     failed. I had to install blas, gcc-fortran and lapack via pacman to make
     it work. The compilation time is very long.
 * Installing ipython via pip to use ipython notebook. (Ipython project
-  structure change short after and I needed to install jupyter to use the ipython notebook)
+  structure change short after and I needed to install jupyter to use the
+  ipython notebook)
 * Reading ipython notebook tutorials about poppy and his v-rep simulation
   * Had to install matplotlib via pip to fully do it
 * Can't acess the USB port. Had to add the user to the right group to do so.
-  * ```bash
-    usermod -aG additional_groups username
-    ```
+  ```bash
+  usermod -aG additional_groups username
+  ```
+
 * Downloading CAD models of the bioloids [here](http://en.robotis.com/BlueAD/board.php?bbs_id=downloads&mode=view&bbs_no=26324&page=1&key=&keyword=&sort=&scate=DRAWING).
 Converting them to mesh (.stl) files with FreeCAD (by writing a FreeCAD macro)
   * The CAD model of the motor itself is in multiple part. Had to do
