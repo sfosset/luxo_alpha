@@ -39,3 +39,7 @@ Converting them to mesh (.stl) files with FreeCAD (by writing a FreeCAD macro)
   * Rolf, Matthias, and Minoru Asada. "Learning Inverse Models in High Dimensions with Goal Babbling and Reward-Weighted Averaging." *Workshop on Advances in Machine Learning for Sensorimotor Control.* 2013.
 * Reading a more detailed article about goal babbling
   * Rolf, Matthias, Jochen J. Steil, and Michael Gienger. "Goal babbling permits direct learning of inverse kinematics." *Autonomous Mental Development, IEEE Transactions on* 2.3 (2010): 216-229.
+* Adding a lot of documentation to the project
+* [TODO] Designing the arm
+* [TODO] Benchmarking simulation method. Make a choice.
+* [TODO] Choose g function, and optimization method.
