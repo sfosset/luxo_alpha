@@ -20,8 +20,11 @@ learning of inverse kinematics." section.
 
 
 ### Lamp design
-The lamp design still have to be define. (A copy of Luxo with 5 DOF or another
-design ?)
+The lamp design still have to be confirmed. (A copy of Luxo with 5 DOF or
+another design ?)
+Here is a prototype based on Luxo (you can find the corresponding .ttt in
+model_1/) :
+![Design of Luxo_1](design_luxo_1.png)
 
 ### "Goal babbling permits direct learning of inverse kinematics."
 **Warning** : This section uses latex math formula integrated in a markdown
