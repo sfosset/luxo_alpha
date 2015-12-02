@@ -1,3 +1,6 @@
+Alain : ok, c'est bien. J'ai fait des propositions en ~~barrant~~ du texte et en __proposant__ des modications.
+
+
 ## The project
 ### Our goal
 The initial idea was to create a robot able to move in a Luxo-style. Luxo is
@@ -6,13 +9,13 @@ are playing with a ball. At some point in the film, the lamp seems to follow
 the ball with head movements in a very *human*-way.
 
 We would like to reproduce such a behavior with a robotic arm, equipped with a
-camera as an effector, following a red ball. If we copy exactly Luxo's design,
+camera as an ~~effector~~captor, following a red ball. If we copy exactly Luxo's design,
 the robotic arm would have 5 degree of freedom (5 revolute joints precisely).
 This number is high enough to meet redundancy issues, and to quickly forget the
 idea of an analytical solution due to its complexity.
 
 So, we decide to head toward a machine learning of inverse kinematics.
-Especially, we would like to apply the Matthias Rolf's goal babbling method,
+Especially, we would like to apply the __Matthias Rolf's goal babbling method__(lien sur la réf biblio?),
 which should have the advantage to be efficient in a 5-ish DOF case, and to
 solve the redundancy issues with very efficient (an so *natural*) movements.
 A description of this solution is given in the "Goal babbling permits direct
@@ -20,7 +23,7 @@ learning of inverse kinematics." section.
 
 
 ### Lamp design
-The lamp design still have to be confirmed. (A copy of Luxo with 5 DOF or
+The lamp design still has to be confirmed. (A copy of Luxo with 5 DOF or
 another design ?)
 Here is a prototype based on Luxo (you can find the corresponding .ttt in
 model_1/) :
@@ -37,7 +40,7 @@ We have a robotic arm. The effector is at the point $x$. The arm can be
 controlled by a command $q$. The resulting effector position from a command
 is given by the forward kinematic function $f(q)=x$. We want to control
 the arm, so we search a function $g(x)=q$ that would give us the right
-command to reach a point $x$.
+command to reach a point $x$. (inverse model)
 
 We don't know an analytic form of $f$, and even if we did, there would be
 redundancy (multiple $q$ leading to the same $x$) and we won't be able to
@@ -45,8 +48,9 @@ easily calculate an inverse $g$. Therefore we want to use a machine learning
 method, goal babbling here.
 
 There is first an initialization phase :
+
 * We start by choosing a set of point $\{x_k\}_{k\in 1..K}$. It can be
-randomly (and/or uniformely) pick in the desired space area.
+randomly (and/or uniformely) picked in the desired space area.
 * We connect each point $x_k$ and $x_{k+1}$ by a linear motion with $L$
 intermediate points. We have a new set $\{x_t\}_{t\in 1..KL}$
 * We define an inverse kinematic function $g_\theta$ with a parameter
@@ -70,7 +74,7 @@ Then we can perform the learning algorithm :
     * for each disturbance function in $\{E^v\}_{v\in 1..V}$
       * compute $E^v(x_t)$
       * compute $g_\theta^v(x_t) = g_\theta(x_t) + E^v(x_t)$
-        * note : his step introduce randomness in the process and allow the
+        * note : this step introduces randomness in the process and allow the
           discovery of new solutions.
       * compute $f(g_\theta^v(x_t))$
       * compute ${w_t^v}^{dir} = \frac{1}{2} (1+\cos(f(g_\theta^v(x_t)) -
@@ -89,11 +93,12 @@ Then we can perform the learning algorithm :
 * end for
 
 
-There remains several question for our case :
-* Form of $g$ (analytic, polynomial, neural network) ?
+There remains several question in our case :
+
+* ~~Form~~__Structure__ of $g$ (analytic, polynomial, neural network) ?
 * Corresponding optimization method (gradient descent on the weighted error,
 neural learning, evolutionary solution) ?
-* How to perform such a dataset ? Obviously, a real simulation is not an
+* How to ~~perform~~__build__ such a dataset ? Obviously, __real data obtained from a robot__ is not an
   option, then we need a simulation tool. But which one ?
 
 ### Benchmarking for the simulations method
