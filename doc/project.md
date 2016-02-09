@@ -6,7 +6,7 @@ are playing with a ball. At some point in the film, the lamp seems to follow
 the ball with head movements in a very *human*-way.
 
 We would like to reproduce such a behavior with a robotic arm, equipped with a
-camera as an effector, following a red ball. If we copy exactly Luxo's design,
+camera as a captor, following a red ball. If we copy exactly Luxo's design,
 the robotic arm would have 5 degree of freedom (5 revolute joints precisely).
 This number is high enough to meet redundancy issues, and to quickly forget the
 idea of an analytical solution due to its complexity.
@@ -20,7 +20,7 @@ learning of inverse kinematics." section.
 
 
 ### Lamp design
-The lamp design still have to be confirmed. (A copy of Luxo with 5 DOF or
+The lamp design still has to be confirmed. (A copy of Luxo with 5 DOF or
 another design ?)
 Here is a prototype based on Luxo (you can find the corresponding .ttt in
 model_1/) :
@@ -37,7 +37,7 @@ We have a robotic arm. The effector is at the point $x$. The arm can be
 controlled by a command $q$. The resulting effector position from a command
 is given by the forward kinematic function $f(q)=x$. We want to control
 the arm, so we search a function $g(x)=q$ that would give us the right
-command to reach a point $x$.
+command to reach a point $x$ (inverse model)
 
 We don't know an analytic form of $f$, and even if we did, there would be
 redundancy (multiple $q$ leading to the same $x$) and we won't be able to
@@ -46,7 +46,7 @@ method, goal babbling here.
 
 There is first an initialization phase :
 * We start by choosing a set of point $\{x_k\}_{k\in 1..K}$. It can be
-randomly (and/or uniformely) pick in the desired space area.
+randomly (and/or uniformely) picked in the desired space area.
 * We connect each point $x_k$ and $x_{k+1}$ by a linear motion with $L$
 intermediate points. We have a new set $\{x_t\}_{t\in 1..KL}$
 * We define an inverse kinematic function $g_\theta$ with a parameter
@@ -66,35 +66,37 @@ position.
 Then we can perform the learning algorithm :
 
 * for number of iteration
-  * for each point in $\{x_t\}_{t\in 1..K.L}$
-    * for each disturbance function in $\{E^v\}_{v\in 1..V}$
+  * for each disturbance function in $\{E^v\}_{v\in 1..V}$
+    * for each point in $\{x_t\}_{t\in 1..K.L}$
       * compute $E^v(x_t)$
       * compute $g_\theta^v(x_t) = g_\theta(x_t) + E^v(x_t)$
-        * note : his step introduce randomness in the process and allow the
+        * note : this step introduces randomness in the process and allow the
           discovery of new solutions.
       * compute $f(g_\theta^v(x_t))$
       * compute ${w_t^v}^{dir} = \frac{1}{2} (1+\cos(f(g_\theta^v(x_t)) -
         f(g_\theta^v(x_{t-1})), x_t - x_{t-1}) )$
         * note : this weight helps measuring the direction efficiency of the movement
-      * compute ${w_t^v}^{eff}$
+      * compute ${w_t^v}^{eff} =
+        \frac{\|x_t^v-x_{t-1}^v\|}{\|q_t^v-q_{t-1}^v\|}$
         * note : this weight helps measuring the amplitude efficiency of the movement
       * compute the total weight $w_t^v = {w_t^v}^{eff}.{w_t^v}^{dir}$
-      * add the triplet $(f(g_\theta^v(x_t), g_\theta^v(x_t), w_t^v)$ to
+      * add the quadruplet $(f(g_\theta^v(x_t)), g_\theta^v(x_t), w_t^v, x_t^v)$ to
         the data set $D$
-      * end for
     * end for
+    * add the home triplet $(f(q_{home}), q_{home}, 1, x_{home}=f(q_{home}))$ to the dataset $D$  
+  * end for
   * update the parameter $\theta$ with the help of the dataset
     * note : any optimization method can be used, depending on the type of $g$
       function you choose
 * end for
-
+* $E(\textbf{M}) = \sum_{t=0}^{D-1} w_t\|\textbf{M}x_t-q_t\|^2$
 
 There remains several question for our case :
 * Form of $g$ (analytic, polynomial, neural network) ?
 * Corresponding optimization method (gradient descent on the weighted error,
 neural learning, evolutionary solution) ?
-* How to perform such a dataset ? Obviously, a real simulation is not an
-  option, then we need a simulation tool. But which one ?
+* How to build such a dataset ? Obviously, a real data obtained from a robot
+  is not an option, then we need a simulation tool. But which one ?
 
 ### Benchmarking for the simulations method
 A quick order of magnitude calculus show that about ten millions of examples

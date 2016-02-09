@@ -40,6 +40,25 @@ Converting them to mesh (.stl) files with FreeCAD (by writing a FreeCAD macro)
 * Reading a more detailed article about goal babbling
   * Rolf, Matthias, Jochen J. Steil, and Michael Gienger. "Goal babbling permits direct learning of inverse kinematics." *Autonomous Mental Development, IEEE Transactions on* 2.3 (2010): 216-229.
 * Adding a lot of documentation to the project
-* [TODO] Designing the arm
+* Designing a first luxo version in V-REP
+  * Making the scene purely kinematic by deactivating dynamics motor in
+  Tools > Calculation Module Properties
+  * Making pure shape corresponding to the mesh for a better calculation (and
+  grouping for some of them)
+  * Adding collisions one by one with Tools > Calculation Module Properties.
+  Don't forget the floor !
+* Writing data_position_generator to generate the learning dataset.
+  * Using matplotlib to see the result, (with python2)
 * [TODO] Benchmarking simulation method. Make a choice.
 * [TODO] Choose g function, and optimization method.
+* Writing goal_babbling_trainer
+* Writing vrep_direct_function, our f function for the training
+* Writing polynomial_model, our g function with a polynomial regression and
+gradient descent optimization.
+* Installing the project on windows :
+  * Install python 3.5
+  * Add path for python and pip
+  * Install Visual Studio 2015 for a C++ compiler (needed for the scipy
+  dependency of pypot)
+  * Install scipy and numpy with pip and binaries found on lfd.uci.edu/~gohlke/pythonlibs
+  * Install pypot via pip

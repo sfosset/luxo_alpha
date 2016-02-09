@@ -1,0 +1,47 @@
+{
+    "controllers": {
+        "simple_controller": {
+            "sync_read":true,
+            "attached_motors": ["foot", "body_bottom", "body_middle",
+                                "body_top", "head"],
+            "protocole":1,
+            "port":"/dev/ttyACM1"
+        }
+    },
+    "motorgroups":{},
+    "motors":{
+        "foot":{
+            "id":12,
+            "orientation":"direct",
+            "type":"AX-12",
+            "offset":0.0
+        },
+        "body_bottom":{
+            "id":13,
+            "orientation":"direct",
+            "type":"AX-12",
+            "angle_limit":[-90.0, 90.0],
+            "offset":0.0
+        },
+        "body_middle":{
+            "id":14,
+            "orientation":"direct",
+            "type":"AX-12",
+            "angle_limit":[-130.0, 130.0],
+            "offset":0.0
+        },
+        "body_top":{
+            "id":15,
+            "orientation":"direct",
+            "type":"AX-12",
+            "angle_limit":[-130.0, 130.0],
+            "offset":0.0
+        },
+        "head":{
+            "id":16,
+            "orientation":"direct",
+            "type":"AX-12",
+            "offset":0.0
+        }
+    }
+}

@@ -47,3 +47,60 @@ config in terms of motors orientation, angle_limit, offset and type.
    ```python
    robot1.close()
    ```
+
+## DataPositionGenerator
+### Description
+This class generates a parallelepiped dataset. First, it creates K points
+uniformly in the given area. Then, it links each of this points with their
+neighbors.
+
+For the initialization it takes 4 vectors :
+* u0 is the "origin" vertex of the parallelepiped
+* u1, u2, u3 are three vectors representing the three edges originating in the
+  u0 vertex.
+
+The output is a JSON file following this pattern :
+``` json
+{
+  "K":1000,
+  "L":10,
+  "dataset":[
+    {
+      "point": [0,0,0],
+      "linking_points_1": [
+        [0.1, 0.1, 0.1],
+        [0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5],
+      ],
+      "linking_points_2":[
+
+      ]
+    },
+    {
+      "point": [0,0,0.5],
+      "linking_points_1":[
+
+      ]
+    }
+  ]
+}
+```
+### Usage
+``` python
+gen = DataPositionGenerator(
+    [0,0,0],
+    [0,0,1],
+    [0,1,0],
+    [1,0,0],
+    10,
+    4
+)
+
+gen.generate_file(filename)
+```
+## GoalBabblingTrainer
+### Description
+Only two specific place : the g function in arguments and the compute_triplet
+method. 

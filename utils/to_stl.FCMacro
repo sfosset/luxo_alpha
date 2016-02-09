@@ -1,4 +1,4 @@
-# Macro Begin: /home/steven/.FreeCAD/to_stl.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+# Macro Begin: /home/steven/.FreeCAD/to_stl.FCMacro ++++++++++++++++++++++++++++
 
 # A useful macro for use with FreeCAD to convert all CAD files of a directory
 # to mesh (.stl) files
@@ -18,4 +18,4 @@ for filename in os.listdir(path+"iges/"):
 	App.closeDocument("Unnamed")
 	del __objs__
 
-# Macro End: /home/steven/.FreeCAD/to_stl.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+# Macro End: /home/steven/.FreeCAD/to_stl.FCMacro ++++++++++++++++++++++++++++++

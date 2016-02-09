@@ -27,8 +27,7 @@ import pypot.dynamixel.motor
 import pypot.dynamixel.syncloop
 
 from pypot.robot.controller import DummyController
-from pypot.robot.config import dxl_io_from_confignode, sensor_from_confignode,
-                                check_motor_limits, _motor_extractor
+from pypot.robot.config import dxl_io_from_confignode, sensor_from_confignode, check_motor_limits, _motor_extractor
 
 class FollowingRobot(Robot):
     # Check les configs
@@ -142,7 +141,7 @@ class FollowingRobot(Robot):
     def from_vrep(self, config, vrep_host='127.0.0.1', vrep_port=19997,
                   scene=None, tracked_objects=[], tracked_collisions=[]):
 
-        # This is a copy from the from_vrep function of pypot package
+        # This is a copy of the from_vrep function of pypot package
         # IMHO, it shouldn't be a stand-alone function but a pypot.Robot method
         # If that was the case, we wouldn't need to copy it here, and maintain it updated...
 
