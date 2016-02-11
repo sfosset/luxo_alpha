@@ -32,7 +32,7 @@ class PolynomialModel():
         self.alpha = 0.2 # gradient step
         self.in_magnitude = 0.2 # the range in which input terms are
         self.out_magnitude = math.pi # the range inwhich output terms are
-        self.random_spread = 0.01 # how much around q_home are the initial params
+        self.random_spread = 0.1 # how much around q_home are the initial params
         self.generate_polynomial()
         self.generate_params()
 
@@ -147,6 +147,11 @@ class PolynomialModel():
                         self.random_spread*self.out_magnitude/P
                     )
                 )
+                # params[i].append(random.uniform(
+                #     -self.random_spread*self.out_magnitude/P,
+                #     self.random_spread*self.out_magnitude/P
+                # )*(1/self.in_magnitude**term_deg))
+                params[i].append(0)
 
         self.params = params
 

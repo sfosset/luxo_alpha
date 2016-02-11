@@ -58,7 +58,7 @@ class GoalBabblingTrainer():
                 inc = 0
                 for point_obj in self.data_position["dataset"]:
                     inc+=1
-                    print('%d\r'%(100*(i/N+v/(V*N)+inc/(V*N*leeen))), end="")
+                    print('i=%d, v=%d, inc=%d\r'%(i,v,inc), end="")
                     point = point_obj["point"]
                     # we don't care about the prev_quadruplet for the first point
                     # since it's used to compute weight and the first point
@@ -79,7 +79,7 @@ class GoalBabblingTrainer():
                                 v
                             )
                             data_result.append(prev_quadruplet)
-
+            self.g.store('params_%d.json'%(i))
             self.g.update(data_result)
 
 

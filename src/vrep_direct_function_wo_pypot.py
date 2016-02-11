@@ -83,7 +83,10 @@ class VrepDirectFunctionWoPypot():
 
     def set_motor_position(self, motor_handler, position):
         """Sets the motor position"""
+        #debut = time.time()
         vrep.simxSetJointPosition(self.client_id, motor_handler, position, vrep.simx_opmode_oneshot_wait)
+        #dt = time.time()-debut
+        #print(dt)
 
     def get_effector_position(self):
         """ Gets the object position. """
